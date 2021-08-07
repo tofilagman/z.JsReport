@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <IsWindows Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</IsWindows>
+    <IsOSX Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::OSX)))' == 'true'">true</IsOSX>
+    <IsLinux Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</IsLinux>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>tofilagman</Authors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsWindows)'=='true'">
+    <NoWarn>1701;1702;0649</NoWarn>
+    <DefineConstants>IsWindows</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsLinux)'=='true'">
+    <NoWarn>1701;1702;0649</NoWarn>
+    <DefineConstants>IsLinux</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(IsOSX)'=='true'">
+    <NoWarn>1701;1702;0649</NoWarn>
+    <DefineConstants>IsOSX</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="jsreport.Local" Version="2.3.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Routing.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+    <PackageReference Include="z.Data.Standard" Version="1.2.16" />
+  </ItemGroup>
+
+  <Choose>
+    <When Condition="'$(IsWindows)'=='true'">
+      <ItemGroup>
+        <PackageReference Include="jsreport.Binary" Version="2.11.0" />
+      </ItemGroup>
+    </When>
+    <When Condition="'$(IsLinux)'=='true'">
+      <ItemGroup>
+        <PackageReference Include="jsreport.Binary.Linux" Version="2.9.0" />
+      </ItemGroup>
+    </When>
+    <When Condition="'$(IsOSX)'=='true'">
+      <ItemGroup>
+        <PackageReference Include="jsreport.Binary.OSX" Version="2.9.0" />
+      </ItemGroup>
+    </When>
+  </Choose>
+
+
+</Project>
